@@ -1,0 +1,984 @@
+{
+	"info": {
+		"_postman_id": "056f592d-d882-436b-9beb-3bb69d85ff8a",
+		"name": "Kodesiana Link Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12403962"
+	},
+	"item": [
+		{
+			"name": "Management",
+			"item": [
+				{
+					"name": "Short Links",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"slug\": \"intro-optimasi\",\r\n    \"url\": \"https://www.kodesiana.com/post/masalah-optimasi-pada-ilmu-komputer/\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URI}}/short_links",
+									"host": ["{{BASE_URI}}"],
+									"path": ["short_links"]
+								}
+							},
+							"response": [
+								{
+									"name": "400 Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"slug\": \"optional\",\r\n    \"url\": \"long url here\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URI}}/short_links",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:25:22 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "152"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=ifGZ%2FEemcbYzNj6yveYo4VRXjtVNXkN2wt8KoZMcutvCyHjPQvBo4tc1TNvCSlku3htdIRtzY%2Bv80ixuyePjVJt1hNhHvblIVxJGZlbVy4eiUWtzW1CJVlAp8lV5ObSaGs0%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839edec88c785e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Invalid request\",\n    \"error\": {\n        \"issues\": [\n            {\n                \"validation\": \"url\",\n                \"code\": \"invalid_string\",\n                \"message\": \"Invalid url\",\n                \"path\": [\n                    \"url\"\n                ]\n            }\n        ],\n        \"name\": \"ZodError\"\n    }\n}"
+								},
+								{
+									"name": "409 Conflict",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"slug\": \"pinn\",\r\n    \"url\": \"https://www.kodesiana.com/post/hands-on-physics-informed-neural-network-dengan-pytorch/\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URI}}/short_links",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:29:59 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "33"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=zKzk9IiV4ZrRHUyY5Acw3Q80P2F1h1a33RrHEqDrGodVjvl1jFpV0gECp1NISP52ZY2CGRVBJ%2B%2BUQVGTmv%2BisqGhBi3S3jeVNKo0ksbSNwFzhTcNYyt8wgvocy3v80n0F4A%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839ee58caed45e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Slug already exists\"\n}"
+								},
+								{
+									"name": "201 Created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"slug\": \"intro-optimasi\",\r\n    \"url\": \"https://www.kodesiana.com/post/masalah-optimasi-pada-ilmu-komputer/\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URI}}/short_links",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:30:23 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "101"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=c5swLkFHAmOHvUwcfphAGe1R0PR6RQ3Rk%2BlVzNL6ulsOTkaVU9oSofwVQB7%2Fp%2BlSg5FVxCs%2FX5zCdFdK%2BOTIrzmY020kALJeMejcrbm3i0bc6q5oOdTLYkbcMU%2B0GI2%2FzEE%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839ee61c3b8c5e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"slug\": \"intro-optimasi\",\n    \"url\": \"https://www.kodesiana.com/post/masalah-optimasi-pada-ilmu-komputer/\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URI}}/short_links/:slug",
+									"host": ["{{BASE_URI}}"],
+									"path": ["short_links", ":slug"],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "pinn"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links/:slug",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links", ":slug"],
+											"variable": [
+												{
+													"key": "slug",
+													"value": "pinn"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:22:07 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=gKzNVt8XpBIQa90RfmXXwawTAw09VmCUiQZo403lSYA0dcFUXkgaTym1CCkXuPZefbE9NCkQATtAUiVqqy4wS5aJDQD2hrOFDSurL%2FZcSF394TpwYVpVj3%2BN4j%2FaPf2vp1k%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839eda000e9b5e5e-SIN"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"slug\": \"pinn\",\n    \"url\": \"https://www.kodesiana.com/post/hands-on-physics-informed-neural-network-dengan-pytorch/\",\n    \"hits\": 2\n}"
+								},
+								{
+									"name": "404 Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links/:slug",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links", ":slug"],
+											"variable": [
+												{
+													"key": "slug",
+													"value": "pinnw"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:22:15 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "28"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=3x%2FjhVhLbGvfp0smKo8WhoOz9Ddft2AJcihNyMpD09c47GfHXpEw9dZEHV9w2OOuiaLTc%2F7%2BqTKw%2FRRoRr3HLKT1eck6zg4ToNdGX6KoF3OH%2FEYBHw2YMpiIPC2v%2B6t48A8%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839eda32bff75e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Slug not found\"\n}"
+								}
+							]
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URI}}/short_links?size=10",
+									"host": ["{{BASE_URI}}"],
+									"path": ["short_links"],
+									"query": [
+										{
+											"key": "prefix",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "cursor",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links?size=10",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"],
+											"query": [
+												{
+													"key": "prefix",
+													"value": "int",
+													"disabled": true
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "cursor",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:33:40 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=pIrcPZyUW219YIKCez%2BWyZvv4AZtOTeRTjYFsMFxC6%2BjHrRQ%2Bff084sGFKjTOZKxoAlzKnDQqWmVV%2FS2xboS0VITqbo3OiA3OHScs99U2QEg6DaRP00xY48%2Bt9JKZLG8wN4%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839eeaeaeaca5e5e-SIN"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isComplete\": true,\n    \"data\": [\n        {\n            \"slug\": \"9mkxef\",\n            \"url\": \"https://l.kodesiana.com/short_links\",\n            \"hits\": 0\n        },\n        {\n            \"slug\": \"intro-optimasi\",\n            \"url\": \"https://www.kodesiana.com/post/masalah-optimasi-pada-ilmu-komputer/\",\n            \"hits\": 0\n        },\n        {\n            \"slug\": \"pinn\",\n            \"url\": \"https://www.kodesiana.com/post/hands-on-physics-informed-neural-network-dengan-pytorch/\",\n            \"hits\": 2\n        }\n    ]\n}"
+								},
+								{
+									"name": "200 OK with prefix",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links?prefix=int&size=10",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"],
+											"query": [
+												{
+													"key": "prefix",
+													"value": "int"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "cursor",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:33:24 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=zrTOUDx3rKb6pI0HZ18RPqSNoZGDo%2FbAcjLYB8oZo231m27XjHSjkabvquUwnGvm25NZ9O%2FABbYV3sskoz3HFNmiSVU4xZYtHrOG5T378QUrtvpl39q4SXiyGV3o8AF5%2B3I%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839eea8a2a295e5e-SIN"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"isComplete\": true,\n    \"data\": [\n        {\n            \"slug\": \"intro-optimasi\",\n            \"url\": \"https://www.kodesiana.com/post/masalah-optimasi-pada-ilmu-komputer/\",\n            \"hits\": 0\n        }\n    ]\n}"
+								},
+								{
+									"name": "404 Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links?prefix=intm.,m,n.&size=10",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links"],
+											"query": [
+												{
+													"key": "prefix",
+													"value": "intm.,m,n."
+												},
+												{
+													"key": "size",
+													"value": "10"
+												},
+												{
+													"key": "cursor",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:34:50 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "28"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=AwVoMwx5VO9Egih7fmzL%2BFnCsPRHrsEM2x1r2EpGFNz7JqPFuRToUdF23zKSKt36mP0vLoKNMAyhAHYx4qxajThXMJ6H7WEwGZSoZzZaac7m49QYiz8qWCAKyUP%2BIattBnE%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839eeca20d595e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"No slugs found\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Remove",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URI}}/short_links/:slug",
+									"host": ["{{BASE_URI}}"],
+									"path": ["short_links", ":slug"],
+									"variable": [
+										{
+											"key": "slug",
+											"value": "9mkxef"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "404 Not Found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links/:slug",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links", ":slug"],
+											"variable": [
+												{
+													"key": "slug",
+													"value": "dsadsf"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:37:20 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "28"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=MumjN%2B8oSmiqqwcHOHWg%2FhQM8rEVORvvsgERwBmI8QaV7viuHvLNCcBemZrgOAfM7iliXnt8N4b%2BMJslVJGYYKrfaPK2K%2BrqchZqun%2B4PkQ9cg0Yk6KBCdsUSCuKmL8puHU%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839ef04e588b5e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Slug not found\"\n}"
+								},
+								{
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/short_links/:slug",
+											"host": ["{{BASE_URI}}"],
+											"path": ["short_links", ":slug"],
+											"variable": [
+												{
+													"key": "slug",
+													"value": "9mkxef"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:37:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "26"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=36RDhsY5tfnyCQV2s7dJ4J8Sl1xLnHfk8pNnVT6878QZG8yljeTqDpB6O8oUzCNoti9r32IRAW5UDtCyz4ck%2FVq353WAQvh1bf2%2BdJPn%2B6fi9XI6a4edrL4feZR1%2FOgbV5I%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839ef0ed3c7b5e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Slug deleted\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Statistics",
+					"item": [
+						{
+							"name": "Overview",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URI}}/statistics",
+									"host": ["{{BASE_URI}}"],
+									"path": ["statistics"]
+								}
+							},
+							"response": [
+								{
+									"name": "200 OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URI}}/statistics",
+											"host": ["{{BASE_URI}}"],
+											"path": ["statistics"]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 23 Dec 2023 07:10:24 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "32"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Report-To",
+											"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=r9JkZFMDPijCwCwBHNWhU1nsprJ734ZeHLeQXL7NCJrQYOgDl8sA2QCplCHEZ9Fy1C31590dCEnCJGrpLMFlbrVAo1ClyD5bavCyVMf5g6QDtCgdcT2c5GOuPLTjbQ%2FlmfU%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "NEL",
+											"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=31536000; includeSubDomains; preload"
+										},
+										{
+											"key": "Server",
+											"value": "cloudflare"
+										},
+										{
+											"key": "CF-RAY",
+											"value": "839ec8d7bbdd5e5e-SIN"
+										},
+										{
+											"key": "alt-svc",
+											"value": "h3=\":443\"; ma=86400"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"hits\": 2,\n    \"success\": 2,\n    \"error\": 0\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "API-Key {{AUTH_API_KEY}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "Authorization",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [""]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [""]
+					}
+				}
+			]
+		},
+		{
+			"name": "Redirect To",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URI}}/:slug",
+					"host": ["{{BASE_URI}}"],
+					"path": [":slug"],
+					"variable": [
+						{
+							"key": "slug",
+							"value": "pinn"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
