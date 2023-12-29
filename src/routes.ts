@@ -2,8 +2,17 @@ import { IRequest, json, html } from "itty-router";
 import { z } from "zod";
 
 import { Env, HTTP_STATUS_CODES, STATISTICS_COUNTER } from "./types";
-import { getStat, hashSlug, incrementStat } from "./helpers";
+import { getStat, getUrl, incrementStat } from "./kv";
 import { notFoundPageContent } from "./html";
+import { hashSlug } from "./helpers";
+
+export function root(req: IRequest, env: Env) {
+	return Response.redirect(env.HOMEPAGE_URL);
+}
+
+export function notFound(req: IRequest, env: Env) {
+	return html(notFoundPageContent(), { status: HTTP_STATUS_CODES.NOT_FOUND });
+}
 
 const CreateSchema = z.object({
 	slug: z.string().trim().optional(),
@@ -25,7 +34,7 @@ export async function create(req: IRequest, env: Env) {
 
 	// check if the slug already exists
 	if (data.slug) {
-		const url = await env.SHORT_URLS.get(data.slug);
+		const url = await getUrl(data.slug, env);
 		if (url) {
 			return json(
 				{ message: "Slug already exists" },
@@ -38,7 +47,7 @@ export async function create(req: IRequest, env: Env) {
 	let slug = data.slug || Math.random().toString(36).slice(2, 8);
 
 	// check if the slug is available
-	while (await env.SHORT_URLS.get(slug)) {
+	while (await getUrl(slug, env)) {
 		slug = Math.random().toString(36).slice(2, 8);
 	}
 
@@ -47,7 +56,8 @@ export async function create(req: IRequest, env: Env) {
 	await env.SHORT_URL_STATS.put(await hashSlug(slug), "0");
 
 	// return the new URL
-	return json({ slug, url: data.url }, { status: HTTP_STATUS_CODES.CREATED });
+	const shortUrl = new URL(slug, env.HOST_URL).toString();
+	return json({ slug, url: data.url, shortUrl: shortUrl }, { status: HTTP_STATUS_CODES.CREATED });
 }
 
 export async function detail(req: IRequest, env: Env) {
@@ -55,7 +65,7 @@ export async function detail(req: IRequest, env: Env) {
 	const slug = req.params.slug;
 
 	// check if the slug exists
-	const url = await env.SHORT_URLS.get(slug);
+	const url = await getUrl(slug, env);
 	if (!url) {
 		return json(
 			{ message: "Slug not found" },
@@ -75,7 +85,7 @@ export async function remove(req: IRequest, env: Env) {
 	const slug = req.params.slug;
 
 	// check if the slug exists
-	const url = await env.SHORT_URLS.get(slug);
+	const url = await getUrl(slug, env);
 	if (!url) {
 		return json(
 			{ message: "Slug not found" },
@@ -128,7 +138,7 @@ export async function list(req: IRequest, env: Env) {
 		slugs.keys.map(async (key) => {
 			return {
 				slug: key.name,
-				url: await env.SHORT_URLS.get(key.name),
+				url: await getUrl(key.name, env),
 				hits: await getStat(await hashSlug(key.name), env),
 			};
 		})
@@ -149,7 +159,7 @@ export async function redirect(req: IRequest, env: Env) {
 	await incrementStat(STATISTICS_COUNTER.TOTAL_HITS, env);
 
 	// get the URL from KV
-	const url = await env.SHORT_URLS.get(slug);
+	const url = await getUrl(slug, env);
 
 	// if the URL exists, redirect to it
 	if (url) {

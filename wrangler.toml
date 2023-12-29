@@ -8,4 +8,5 @@ kv_namespaces = [
 ]
 
 [vars]
-HOST_URL = "https://www.kodesiana.com"
+HOST_URL = "https://l.kodesiana.com"
+HOMEPAGE_URL = "https://www.kodesiana.com"

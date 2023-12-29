@@ -16,8 +16,9 @@ Features:
 2. Login using `wrangler login`
 3. Create two KV namespace `npx wrangler kv:namespace create SHORT_URLS` and `SHORT_URL_STATS`
 4. Copy the binding code to the `wrangler.toml`, replace the old value there
-5. Update the `HOST_URL` to your main site (this is the default redirect)
-6. Create `.dev.vars` and add this line: `AUTH_KEY=<random key here>`
-7. Deploy the worker `npm run deploy`
+5. Update the `HOMEPAGE_URL` to your main site (this is the default redirect)
+6. Update the `HOST_URL` to your domain/subdomain for this worker
+7. Create `.dev.vars` and add this line: `AUTH_KEY=<random key here>`
+8. Deploy the worker `npm run deploy`
 
 Easy peasy, right?

@@ -17,8 +17,9 @@ router
 	.delete("/short_links/:slug", withAuth, routes.remove)
 	.get("/:slug", routes.redirect)
 
-	// catch-all route
-	.get("*", (req: Request, env: Env) => Response.redirect(env.HOST_URL));
+	// root and catch-all route
+	.get("/", routes.root)
+	.get("*", routes.notFound);
 
 export default {
 	fetch: (request: Request, env: Env, ctx: ExecutionContext) =>

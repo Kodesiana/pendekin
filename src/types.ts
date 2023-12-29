@@ -4,9 +4,13 @@ export interface Env {
 	SHORT_URL_STATS: KVNamespace;
 
 	// host URL
-	HOST_URL: string;
 	AUTH_KEY: string;
+	HOST_URL: string;
+	HOMEPAGE_URL: string;
 }
+
+// cache TTL in seconds, 1 day
+export const CACHE_TTL = 60 * 60 * 24;
 
 export const STATISTICS_COUNTER = {
 	TOTAL_HITS: "TOTAL_HITS",
