@@ -4,7 +4,6 @@ import { z } from "zod";
 import { Env, HTTP_STATUS_CODES, STATISTICS_COUNTER } from "./types";
 import { getStat, getUrl, incrementStat } from "./kv";
 import { notFoundPageContent } from "./html";
-import { hashSlug } from "./helpers";
 
 export function root(req: IRequest, env: Env) {
 	return Response.redirect(env.HOMEPAGE_URL);
@@ -53,7 +52,7 @@ export async function create(req: IRequest, env: Env) {
 
 	// save the URL to KV
 	await env.SHORT_URLS.put(slug, data.url);
-	await env.SHORT_URL_STATS.put(await hashSlug(slug), "0");
+	await env.SHORT_URL_STATS.put(slug, "0");
 
 	// return the new URL
 	const shortUrl = new URL(slug, env.HOST_URL).toString();
@@ -76,7 +75,7 @@ export async function detail(req: IRequest, env: Env) {
 	return json({
 		slug,
 		url,
-		hits: await getStat(await hashSlug(slug), env),
+		hits: await getStat(slug, env),
 	});
 }
 
@@ -95,7 +94,7 @@ export async function remove(req: IRequest, env: Env) {
 
 	// delete the slug from KV
 	await env.SHORT_URLS.delete(slug);
-	await env.SHORT_URL_STATS.delete(await hashSlug(slug));
+	await env.SHORT_URL_STATS.delete(slug);
 
 	return json({ message: "Slug deleted" });
 }
@@ -139,7 +138,7 @@ export async function list(req: IRequest, env: Env) {
 			return {
 				slug: key.name,
 				url: await getUrl(key.name, env),
-				hits: await getStat(await hashSlug(key.name), env),
+				hits: await getStat(key.name, env),
 			};
 		})
 	);
@@ -164,7 +163,7 @@ export async function redirect(req: IRequest, env: Env) {
 	// if the URL exists, redirect to it
 	if (url) {
 		// save the hit to KV
-		await incrementStat(await hashSlug(slug), env);
+		await incrementStat(slug, env);
 		await incrementStat(STATISTICS_COUNTER.TOTAL_HIT_OK, env);
 
 		// return a 301 redirect
