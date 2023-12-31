@@ -14,7 +14,7 @@ export function notFound(req: IRequest, env: Env) {
 }
 
 const CreateSchema = z.object({
-	slug: z.string().trim().optional(),
+	slug: z.string().trim().max(100).optional(),
 	url: z.string().url(),
 });
 
@@ -32,6 +32,7 @@ export async function create(req: IRequest, env: Env) {
 	const data = parsed.data;
 
 	// check if the slug already exists
+	let slug = data.slug || "";
 	if (data.slug) {
 		const url = await getUrl(data.slug, env);
 		if (url) {
@@ -40,14 +41,14 @@ export async function create(req: IRequest, env: Env) {
 				{ status: HTTP_STATUS_CODES.CONFLICT }
 			);
 		}
-	}
-
-	// generate a slug if one doesn't exist
-	let slug = data.slug || Math.random().toString(36).slice(2, 8);
-
-	// check if the slug is available
-	while (await getUrl(slug, env)) {
+	} else {
+		// generate a slug if one doesn't exist
 		slug = Math.random().toString(36).slice(2, 8);
+
+		// check if the slug is available
+		while (await getUrl(slug, env)) {
+			slug = Math.random().toString(36).slice(2, 8);
+		}
 	}
 
 	// save the URL to KV
