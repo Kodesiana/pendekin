@@ -9,6 +9,6 @@ app.use("/api/*", middlewares.auth);
 
 app.route("/api/links", routes.links);
 app.route("/api/statistics", routes.statistics);
-routes.registerMainRoute(app);
+app.route("", routes.redirect);
 
 export default app;

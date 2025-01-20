@@ -1,4 +1,4 @@
-import type { Hono } from "hono";
+import { Hono } from "hono";
 import { StatusCodes } from "http-status-codes";
 
 import { notFoundHtmlContent } from "../helpers/contents";
@@ -10,38 +10,41 @@ import {
 	incrementTotalOkHits,
 } from "../repository/statistics";
 
-function register(app: Hono<{ Bindings: Env }>) {
-	app.get("/:slug", async (c) => {
-		// get slug from URL
-		const slug = c.req.param("slug");
+const app = new Hono<{ Bindings: Env }>();
 
-		// get the URL from KV
-		const url = await getUrl(slug, c.env);
+app.get("/:slug", async (c) => {
+	// get slug from URL
+	const slug = c.req.param("slug");
 
-		// if the URL exists, redirect to it
-		if (url) {
-			// save the hit to KV
-			await incrementSlugHit(slug, c.env);
-			await incrementTotalOkHits(c.env);
+	// get the URL from KV
+	const url = await getUrl(slug, c.env);
 
-			// return a 301 redirect
-			return c.redirect(url, StatusCodes.PERMANENT_REDIRECT);
-		}
+	// set cache control header
+	c.header("Cache-Control", "private, max-age=90");
 
-		// save error hit stats
-		await incrementTotalErrorHits(c.env);
+	// if the URL exists, redirect to it
+	if (url) {
+		// save the hit to KV
+		await incrementSlugHit(slug, c.env);
+		await incrementTotalOkHits(c.env);
 
-		// otherwise, return a 404
-		return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
-	});
+		// return a 301 redirect
+		return c.redirect(url, StatusCodes.MOVED_PERMANENTLY);
+	}
 
-	app.get("/", async (c) => {
-		return c.redirect(c.env.HOMEPAGE_URL, StatusCodes.PERMANENT_REDIRECT);
-	});
+	// save error hit stats
+	await incrementTotalErrorHits(c.env);
 
-	app.get("*", async (c) => {
-		return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
-	});
-}
+	// otherwise, return a 404
+	return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
+});
 
-export default register;
+app.get("/", async (c) => {
+	return c.redirect(c.env.HOMEPAGE_URL, StatusCodes.PERMANENT_REDIRECT);
+});
+
+app.get("*", async (c) => {
+	return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
+});
+
+export default app;
