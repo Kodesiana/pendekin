@@ -15,7 +15,10 @@ app.get(
 		"query",
 		v.object({
 			prefix: v.optional(v.string()),
-			size: v.optional(v.pipe(v.string(), v.transform(Number), v.minValue(1), v.maxValue(100)), "10"),
+			size: v.optional(
+				v.pipe(v.string(), v.transform(Number), v.minValue(1), v.maxValue(100)),
+				"10",
+			),
 			cursor: v.optional(v.string()),
 		}),
 	),
