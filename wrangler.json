@@ -1,0 +1,23 @@
+{
+	"name": "kodesiana-pendekin",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-01-01",
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 0.1
+	},
+	"vars": {
+		"HOST_URL": "https://l.kodesiana.com",
+		"HOMEPAGE_URL": "https://www.kodesiana.com"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "SHORT_URLS",
+			"id": "1268ed17e5864c38b6ccaf7e36332127"
+		},
+		{
+			"binding": "SHORT_URL_STATS",
+			"id": "4ed2362d1a2d417eb1226dae2f71ddf1"
+		}
+	]
+}
