@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import type { Hono } from "hono";
 import { StatusCodes } from "http-status-codes";
 
 import { notFoundHtmlContent } from "../helpers/contents";
@@ -10,38 +10,38 @@ import {
 	incrementTotalOkHits,
 } from "../repository/statistics";
 
-const app = new Hono<{ Bindings: Env }>();
+function register(app: Hono<{ Bindings: Env }>) {
+	app.get("/:slug", async (c) => {
+		// get slug from URL
+		const slug = c.req.param("slug");
 
-app.get("/:slug", async (c) => {
-	// get slug from URL
-	const slug = c.req.param("slug");
+		// get the URL from KV
+		const url = await getUrl(slug, c.env);
 
-	// get the URL from KV
-	const url = await getUrl(slug, c.env);
+		// if the URL exists, redirect to it
+		if (url) {
+			// save the hit to KV
+			await incrementSlugHit(slug, c.env);
+			await incrementTotalOkHits(c.env);
 
-	// if the URL exists, redirect to it
-	if (url) {
-		// save the hit to KV
-		await incrementSlugHit(slug, c.env);
-		await incrementTotalOkHits(c.env);
+			// return a 301 redirect
+			return c.redirect(url, StatusCodes.PERMANENT_REDIRECT);
+		}
 
-		// return a 301 redirect
-		return c.redirect(url, StatusCodes.PERMANENT_REDIRECT);
-	}
+		// save error hit stats
+		await incrementTotalErrorHits(c.env);
 
-	// save error hit stats
-	await incrementTotalErrorHits(c.env);
+		// otherwise, return a 404
+		return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
+	});
 
-	// otherwise, return a 404
-	return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
-});
+	app.get("/", async (c) => {
+		return c.redirect(c.env.HOMEPAGE_URL, StatusCodes.PERMANENT_REDIRECT);
+	});
 
-app.get("/", async (c) => {
-	return c.redirect(c.env.HOMEPAGE_URL, StatusCodes.PERMANENT_REDIRECT);
-});
+	app.get("*", async (c) => {
+		return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
+	});
+}
 
-app.get("*", async (c) => {
-	return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
-});
-
-export default app;
+export default register;
