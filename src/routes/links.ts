@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { validator } from "hono/validator";
+import { vValidator } from "@hono/valibot-validator";
 
 import * as v from "valibot";
 import { StatusCodes } from "http-status-codes";
@@ -11,20 +11,14 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.get(
 	"/",
-	validator("query", (value, c) => {
-		const schema = v.object({
+	vValidator(
+		"query",
+		v.object({
 			prefix: v.optional(v.string()),
 			size: v.optional(v.pipe(v.number(), v.minValue(1), v.maxValue(100)), 10),
 			cursor: v.optional(v.string()),
-		});
-
-		const parsed = v.safeParse(schema, value);
-		if (!parsed.success) {
-			return c.json(parsed.issues, StatusCodes.BAD_REQUEST);
-		}
-
-		return parsed.output;
-	}),
+		}),
+	),
 	async (c) => {
 		// get the data
 		const data = c.req.valid("query");
@@ -63,19 +57,13 @@ app.get(
 
 app.post(
 	"/",
-	validator("json", (value, c) => {
-		const schema = v.object({
+	vValidator(
+		"json",
+		v.object({
 			slug: v.optional(v.pipe(v.string(), v.maxLength(100, ""))),
 			url: v.pipe(v.string(), v.nonEmpty(), v.url()),
-		});
-
-		const parsed = v.safeParse(schema, value);
-		if (!parsed.success) {
-			return c.json(parsed.issues, StatusCodes.BAD_REQUEST);
-		}
-
-		return parsed.output;
-	}),
+		}),
+	),
 	async (c) => {
 		// get the data
 		const data = c.req.valid("json");
