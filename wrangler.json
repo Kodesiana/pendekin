@@ -6,7 +6,7 @@
 		"enabled": true,
 		"head_sampling_rate": 0.01,
 		"logs": {
-			"invocation_logs": false
+			"invocation_logs": true
 		}
 	},
 	"vars": {
