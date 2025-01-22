@@ -5,6 +5,7 @@ import * as middlewares from "./middlewares";
 
 const app = new Hono<{ Bindings: Env }>();
 
+app.use("*", middlewares.robotsNoIndex);
 app.use("/api/*", middlewares.auth);
 
 app.route("/api/links", routes.links);
