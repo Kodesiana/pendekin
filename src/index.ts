@@ -9,7 +9,6 @@ app.use("*", middlewares.robotsNoIndex);
 app.use("/api/*", middlewares.auth);
 
 app.route("/api/links", routes.links);
-app.route("/api/statistics", routes.statistics);
 app.route("", routes.redirect);
 
 export default app;

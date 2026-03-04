@@ -10,10 +10,8 @@ export async function getUrl(slug: string, env: Env) {
 
 export async function create(slug: string, url: string, env: Env) {
 	await env.SHORT_URLS.put(slug, url);
-	await env.SHORT_URL_STATS.put(slug, "0");
 }
 
 export async function remove(slug: string, env: Env) {
 	await env.SHORT_URLS.delete(slug);
-	await env.SHORT_URL_STATS.delete(slug);
 }

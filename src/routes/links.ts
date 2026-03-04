@@ -5,7 +5,6 @@ import * as v from "valibot";
 import { StatusCodes } from "http-status-codes";
 
 import { create, generateSlug, getUrl, remove } from "../repository/links";
-import { getStats } from "../repository/statistics";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -43,7 +42,6 @@ app.get(
 				return {
 					slug: key.name,
 					url: await getUrl(key.name, c.env),
-					hits: await getStats(key.name, c.env),
 				};
 			}),
 		);
@@ -113,7 +111,6 @@ app.get("/:slug", async (c) => {
 	return c.json({
 		slug,
 		url,
-		hits: await getStats(slug, c.env),
 	});
 });
 

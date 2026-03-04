@@ -4,11 +4,6 @@ import { StatusCodes } from "http-status-codes";
 import { notFoundHtmlContent } from "../helpers/contents";
 
 import { getUrl } from "../repository/links";
-import {
-	incrementSlugHit,
-	incrementTotalErrorHits,
-	incrementTotalOkHits,
-} from "../repository/statistics";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -24,16 +19,9 @@ app.get("/:slug", async (c) => {
 
 	// if the URL exists, redirect to it
 	if (url) {
-		// save the hit to KV
-		await incrementSlugHit(slug, c.env);
-		await incrementTotalOkHits(c.env);
-
 		// return a 301 redirect
 		return c.redirect(url, StatusCodes.MOVED_PERMANENTLY);
 	}
-
-	// save error hit stats
-	await incrementTotalErrorHits(c.env);
 
 	// otherwise, return a 404
 	return c.html(notFoundHtmlContent(), StatusCodes.NOT_FOUND);
